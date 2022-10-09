@@ -17,13 +17,15 @@ const PokemonCard = ({ pokemon }) => {
 
   return (
     <div className="card">
-      <p>{pokemon.name}</p>
-      <div className="flex-shrink-0 w-full justify-items-center">
+      <div>
+        <p className="font-black">{pokemon.name}</p>
+      </div>
+      <div className="mt-3 flex-shrink-0 w-full justify-items-center">
         {loading ? (
           <Lottie animationData={pokeballLoading} />
         ) : (
           <img
-            className="w-30 object-cover pointer-events-none"
+            className="w-40 object-cover pointer-events-none"
             src={pokemonImage}
             alt={pokemon.name}
           />

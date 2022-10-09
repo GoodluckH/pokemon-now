@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PokemonCard from "./PokemonCard";
+import PokemonDetail from "./PokemonDetail";
 
 // with pagination
 const POKEMON_ENDPOINT = "https://pokeapi.co/api/v2/pokemon/?limit=2000";
@@ -10,6 +11,7 @@ const Pokemons = () => {
   const [pokemons, setPokemons] = useState([]);
   const [startingIndex, setStartingIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [currentPokemon, setCurrentPokemon] = useState();
 
   useEffect(() => {
     setLoading(true);
@@ -33,6 +35,11 @@ const Pokemons = () => {
   // the grid should be responsive with 1 columns on mobile, 3 on tablet and 5 on desktop
   return (
     <>
+      <PokemonDetail
+        isOpen={currentPokemon !== undefined}
+        onClose={() => setCurrentPokemon(undefined)}
+        pokemon={currentPokemon}
+      />
       {loading ? (
         <div className="spinner-border" role="status">
           <span>Loading...</span>
@@ -54,15 +61,17 @@ const Pokemons = () => {
             {pokemons
               .slice(startingIndex, startingIndex + NUMBER_OF_POKEMONS_PER_PAGE)
               .map((pokemon, index) => (
-                <button
-                  key={index}
-                  className="flex select-none flex-col transform rounded-xl
-                  shadow-lg border border-gray-300 overflow-hidden
-                  hover:opacity-75 transition-opacity bg-white
-                  focus:outline-none focus:shadow-xl duration-200"
-                >
-                  <PokemonCard pokemon={pokemon} />
-                </button>
+                <div key={index} className="group">
+                  <button
+                    onClick={() => setCurrentPokemon(pokemon)}
+                    className="flex select-none text-center flex-col transform rounded-xl
+                    shadow-lg border border-gray-300 overflow-hidden
+                    hover:opacity-75 transition-opacity bg-white
+                    focus:outline-none focus:shadow-xl duration-200"
+                  >
+                    <PokemonCard pokemon={pokemon} />
+                  </button>
+                </div>
               ))}
           </div>
         </div>
