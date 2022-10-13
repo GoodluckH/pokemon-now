@@ -2,20 +2,19 @@ import { useEffect, useState } from "react";
 import PokemonTypeColor from "../PokemonTypeColor";
 
 const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
-  const [pokemonData, setPokemonData] = useState();
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    if (pokemon) {
-      setLoading(true);
-      fetch(pokemon.url)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setPokemonData(data);
-          setLoading(false);
-        });
-    }
-  }, [pokemon]);
+  // const [pokemonData, setPokemonData] = useState();
+  const [loading, setLoading] = useState(false);
+  // useEffect(() => {
+  //   if (pokemon) {
+  //     setLoading(true);
+  //     fetch(pokemon.url)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setPokemonData(data);
+  //         setLoading(false);
+  //       });
+  //   }
+  // }, [pokemon]);
   return (
     <>
       {isOpen && (
@@ -59,11 +58,11 @@ const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
                         <div className="flex flex-col items-center">
                           <img
                             className="w-40 object-cover pointer-events-none"
-                            src={pokemonData.sprites.front_default}
+                            src={pokemon.image}
                             alt={pokemon.name}
                           />
                           <div className="mt-2">
-                            {pokemonData.types.map((type, index) => (
+                            {pokemon.types.map((type, index) => (
                               <span
                                 key={index}
                                 className={`inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-s 
@@ -96,7 +95,7 @@ const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
                       ) : (
                         <div className="flex flex-col items-center">
                           <div className="">
-                            {pokemonData.stats.map((stat, index) => (
+                            {pokemon.stats.map((stat, index) => (
                               <p
                                 key={index}
                                 className=" items-center px-2.5 text-lg font-medium bg-gray-100 text-gray-800"

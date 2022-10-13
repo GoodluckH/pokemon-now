@@ -2,7 +2,7 @@ import Pokemons from "./components/Pokemons";
 
 function App() {
   return (
-    <div className="flex justify-center bg-slate-100">
+    <div className="flex justify-center">
       <Pokemons />
     </div>
   );

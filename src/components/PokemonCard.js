@@ -3,18 +3,12 @@ import Lottie from "lottie-react";
 import pokeballLoading from "./pokeball-loading.json";
 
 const PokemonCard = ({ pokemon }) => {
-  const [pokemonImage, setPokemonImage] = useState("");
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    fetch(pokemon.url)
-      .then((response) => response.json())
-      .then((data) => {
-        setPokemonImage(data.sprites.front_default);
-        setLoading(false);
-      });
-  }, [pokemon.url]);
+  const [loading, setLoading] = useState(false);
 
+  const handleImageOnLoad = () => {
+    console.log("image loaded");
+    setLoading(false);
+  };
   return (
     <div className="card">
       <div>
@@ -26,8 +20,9 @@ const PokemonCard = ({ pokemon }) => {
         ) : (
           <img
             className="w-40 object-cover pointer-events-none"
-            src={pokemonImage}
+            src={pokemon.image}
             alt={pokemon.name}
+            onLoad={handleImageOnLoad}
           />
         )}
       </div>

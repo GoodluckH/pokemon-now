@@ -18,6 +18,7 @@ const PokemonTypeColor = {
     rock: "bg-[#B8A038]",
     steel: "bg-[#B8B8D0]",
     water: "bg-[#6890F0]",
+    all: "bg-[#BBBBBB]",
   },
   text: {
     bug: "text-white",
@@ -38,6 +39,7 @@ const PokemonTypeColor = {
     rock: "text-white",
     steel: "text-white",
     water: "text-white",
+    all: "text-red-500",
   },
 };
 

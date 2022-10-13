@@ -1,22 +1,12 @@
 import { useEffect, useState } from "react";
 import PokemonTypeColor from "../PokemonTypeColor";
-import PokemonCard from "./PokemonCard";
 
 // navbar with black background color and sticky position
 const NavBar = (props) => {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
 
-  const {
-    pokemons,
-    handleNext,
-    handlePrevious,
-    handleFirst,
-    handleLast,
-    startingIndex,
-  } = props;
+  const { handleTypeSelected, selectedType } = props;
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -24,21 +14,12 @@ const NavBar = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    fetch(`https://pokeapi.co/api/v2/pokemon/${search}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSearchResults(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
   };
 
   return (
-    <nav className="bg-red-700 sticky top-0 z-50 w-full">
+    <nav
+      className={`pb-3 w-full sticky top-0 z-50 transition duration-500 ease-in-out bg-white backdrop-filter backdrop-blur-md bg-opacity-80`}
+    >
       <div className="flex justify-center">
         <form onSubmit={handleSubmit}>
           <input
@@ -53,46 +34,20 @@ const NavBar = (props) => {
         </form>
       </div>
 
-      {/* Navigation buttons */}
-      <div className="flex justify-center">
-        <div className="inline-flex">
-          <button
-            onClick={handleFirst}
-            disabled={startingIndex === 0}
-            className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l disabled:bg-gray-400"
-          >
-            First
-          </button>
-          <button
-            onClick={handlePrevious}
-            disabled={startingIndex === 0}
-            className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 disabled:bg-gray-400"
-          >
-            Prev
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={startingIndex >= pokemons.length - 20}
-            className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 disabled:bg-gray-400"
-          >
-            Next
-          </button>
-          <button
-            onClick={handleLast}
-            disabled={startingIndex >= pokemons.length - 20}
-            className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r disabled:bg-gray-400"
-          >
-            Last
-          </button>
-        </div>
-      </div>
-
       {/* Filter by types using colors from PokemonTypeColor */}
-      <div className="flex justify-center">
+      <div className="flex justify-center flex-wrap m-2">
         {Object.keys(PokemonTypeColor.bg).map((type) => (
           <button
             key={type}
-            className={`${PokemonTypeColor.bg[type]} hover:${PokemonTypeColor.bg[type]} ${PokemonTypeColor.text[type]} font-bold py-2 px-4 rounded-l`}
+            onClick={() => handleTypeSelected(type)}
+            className={`${
+              selectedType === type
+                ? PokemonTypeColor.bg[type]
+                : `bg-gray-900 shadow-lg`
+            } hover:${PokemonTypeColor.bg[type]} ${
+              PokemonTypeColor.text[type]
+            }  py-1 px-3 rounded-full text-s 
+            font-medium m-1`}
           >
             {type}
           </button>
