@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Lottie from "lottie-react";
 import pokeballLoading from "./pokeball-loading.json";
 

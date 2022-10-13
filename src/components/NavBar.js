@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PokemonTypeColor from "../PokemonTypeColor";
 
 // navbar with black background color and sticky position
 const NavBar = (props) => {
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   const { handleTypeSelected, selectedType } = props;
 

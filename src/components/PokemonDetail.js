@@ -1,20 +1,6 @@
-import { useEffect, useState } from "react";
 import PokemonTypeColor from "../PokemonTypeColor";
 
 const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
-  // const [pokemonData, setPokemonData] = useState();
-  const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   if (pokemon) {
-  //     setLoading(true);
-  //     fetch(pokemon.url)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setPokemonData(data);
-  //         setLoading(false);
-  //       });
-  //   }
-  // }, [pokemon]);
   return (
     <>
       {isOpen && (
@@ -50,32 +36,26 @@ const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
                       {pokemon.name}
                     </p>
                     <div className="mt-2 select-none">
-                      {loading ? (
-                        <div className="spinner-border" role="status">
-                          <span>Loading...</span>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center">
-                          <img
-                            className="w-40 object-cover pointer-events-none"
-                            src={pokemon.image}
-                            alt={pokemon.name}
-                          />
-                          <div className="mt-2">
-                            {pokemon.types.map((type, index) => (
-                              <span
-                                key={index}
-                                className={`inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-s 
+                      <div className="flex flex-col items-center">
+                        <img
+                          className="w-40 object-cover pointer-events-none"
+                          src={pokemon.image}
+                          alt={pokemon.name}
+                        />
+                        <div className="mt-2">
+                          {pokemon.types.map((type, index) => (
+                            <span
+                              key={index}
+                              className={`inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-s 
                                 font-medium 
                                 ${PokemonTypeColor.text[type.type.name]}
                                 ${PokemonTypeColor.bg[type.type.name]}`}
-                              >
-                                {type.type.name}
-                              </span>
-                            ))}
-                          </div>
+                            >
+                              {type.type.name}
+                            </span>
+                          ))}
                         </div>
-                      )}
+                      </div>
                     </div>
                   </div>
 
@@ -88,24 +68,18 @@ const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
                       stats
                     </p>
                     <div className="mt-9 select-none">
-                      {loading ? (
-                        <div className="spinner-border" role="status">
-                          <span>Loading...</span>
+                      <div className="flex flex-col items-center">
+                        <div className="">
+                          {pokemon.stats.map((stat, index) => (
+                            <p
+                              key={index}
+                              className=" items-center px-2.5 text-lg font-medium bg-gray-100 text-gray-800"
+                            >
+                              {stat.stat.name} : {stat.base_stat}
+                            </p>
+                          ))}
                         </div>
-                      ) : (
-                        <div className="flex flex-col items-center">
-                          <div className="">
-                            {pokemon.stats.map((stat, index) => (
-                              <p
-                                key={index}
-                                className=" items-center px-2.5 text-lg font-medium bg-gray-100 text-gray-800"
-                              >
-                                {stat.stat.name} : {stat.base_stat}
-                              </p>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+                      </div>
                     </div>
                   </div>
                 </div>
