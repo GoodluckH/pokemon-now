@@ -16,6 +16,7 @@ const Pokemons = () => {
   const [loading, setLoading] = useState(true);
   const [currentPokemon, setCurrentPokemon] = useState();
   const [selectedType, setSelectedType] = useState("all");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -45,6 +46,10 @@ const Pokemons = () => {
           });
       });
   }, []);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   const handleNext = () => {
     setStartingIndex(
@@ -99,6 +104,8 @@ const Pokemons = () => {
               handleTypeSelected={handleTypeSelected}
               selectedType={selectedType}
               pokemons={pokemons}
+              search={search}
+              handleSearch={handleSearch}
             />
 
             <NavButtons
@@ -122,6 +129,15 @@ const Pokemons = () => {
                       return pokemons
                         .get(pokemon)
                         .types.some((type) => type.type.name === selectedType);
+                    })
+                    .filter((pokemon) => {
+                      if (search === "") {
+                        return true;
+                      }
+                      return pokemons
+                        .get(pokemon)
+                        .name.toLowerCase()
+                        .includes(search.toLowerCase());
                     })
                     .slice(
                       startingIndex,

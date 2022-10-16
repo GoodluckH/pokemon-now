@@ -1,15 +1,8 @@
-import { useState } from "react";
 import PokemonTypeColor from "../PokemonTypeColor";
 
 // navbar with black background color and sticky position
 const NavBar = (props) => {
-  const [search, setSearch] = useState("");
-
   const { handleTypeSelected, selectedType } = props;
-
-  const handleChange = (e) => {
-    setSearch(e.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,22 +10,8 @@ const NavBar = (props) => {
 
   return (
     <nav
-      className={`pb-3 w-full sticky top-0 z-50 transition duration-500 ease-in-out bg-white backdrop-filter backdrop-blur-md bg-opacity-80`}
+      className={`pb-3 w-full sticky top-0 pt-5 z-50 transition duration-500 ease-in-out bg-white backdrop-filter backdrop-blur-md bg-opacity-80`}
     >
-      <div className="flex justify-center">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Search for a pokemon"
-            value={search}
-            onChange={handleChange}
-          />
-          <button type="submit" className="bg-red-100">
-            Search
-          </button>
-        </form>
-      </div>
-
       {/* Filter by types using colors from PokemonTypeColor */}
       <div className="flex justify-center flex-wrap m-2">
         {Object.keys(PokemonTypeColor.bg).map((type) => (
@@ -51,6 +30,19 @@ const NavBar = (props) => {
             {type}
           </button>
         ))}
+      </div>
+
+      {/* search bar */}
+      <div className="flex justify-center">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search for a pokemon"
+            value={props.search}
+            onChange={props.handleSearch}
+            className="w-80 px-3 py-2 border border-gray-500 rounded-md shadow-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </form>
       </div>
     </nav>
   );
