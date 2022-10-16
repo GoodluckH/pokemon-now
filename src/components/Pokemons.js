@@ -5,6 +5,8 @@ import PokemonCart from "./PokemonCart";
 import PokemonTypeColor from "../PokemonTypeColor";
 import NavBar from "./NavBar";
 import NavButtons from "./NavButtons";
+import Lottie from "lottie-react";
+import mainLoading from "./main-loading.json";
 
 // with pagination
 const POKEMON_ENDPOINT = "https://pokeapi.co/api/v2/pokemon/?limit=1000";
@@ -104,8 +106,8 @@ const Pokemons = () => {
         selectedPokemons={selectedPokemons}
       />
       {loading ? (
-        <div className="spinner-border" role="status">
-          <span>Loading...</span>
+        <div className="spinner-border">
+          <Lottie animationData={mainLoading} />
         </div>
       ) : (
         <>
