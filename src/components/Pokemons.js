@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PokemonCard from "./PokemonCard";
 import PokemonDetail from "./PokemonDetail";
+import PokemonCart from "./PokemonCart";
 import PokemonTypeColor from "../PokemonTypeColor";
 import NavBar from "./NavBar";
 import NavButtons from "./NavButtons";
@@ -16,6 +17,7 @@ const Pokemons = () => {
   const [loading, setLoading] = useState(true);
   const [currentPokemon, setCurrentPokemon] = useState();
   const [selectedType, setSelectedType] = useState("all");
+  const [selectedPokemons, setSelectedPokemons] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -78,6 +80,18 @@ const Pokemons = () => {
     setSelectedType(type);
   };
 
+  const handleSelectPokemon = (pokemon) => {
+    if (!selectedPokemons.includes(pokemon)) {
+      setSelectedPokemons([...selectedPokemons, pokemon]);
+    } else {
+      setSelectedPokemons(
+        selectedPokemons.filter(
+          (selectedPokemon) => selectedPokemon !== pokemon
+        )
+      );
+    }
+  };
+
   // use tailwind css to display a grid of cards with the pokemon's name and image
   // the grid should be responsive with 1 columns on mobile, 3 on tablet and 5 on desktop
   return (
@@ -86,6 +100,8 @@ const Pokemons = () => {
         isOpen={currentPokemon !== undefined}
         onClose={() => setCurrentPokemon(undefined)}
         pokemon={currentPokemon}
+        onSelectPokemon={handleSelectPokemon}
+        selectedPokemons={selectedPokemons}
       />
       {loading ? (
         <div className="spinner-border" role="status">
@@ -107,7 +123,11 @@ const Pokemons = () => {
               search={search}
               handleSearch={handleSearch}
             />
-
+            <PokemonCart
+              pokemons={pokemons}
+              selectedPokemons={selectedPokemons}
+              onSelectPokemon={handleSelectPokemon}
+            />
             <NavButtons
               handleNext={handleNext}
               handlePrevious={handlePrevious}

@@ -1,10 +1,16 @@
 import PokemonTypeColor from "../PokemonTypeColor";
 
-const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
+const PokemonDetail = ({
+  pokemon,
+  isOpen,
+  onClose,
+  onSelectPokemon,
+  selectedPokemons,
+}) => {
   return (
     <>
       {isOpen && (
-        <div className={`fixed inset-0 z-10 overflow-y-auto`}>
+        <div className={`fixed inset-0 z-30 overflow-y-auto`}>
           <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             <div
               className="fixed inset-0 transition-opacity"
@@ -30,7 +36,7 @@ const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
                   {/* name and image and types of the pokemon */}
                   <div className="mt-3 text-center sm:mt-0 sm:mx-4 sm:text-left">
                     <p
-                      className="leading-12 text-gray-900 font-black font-sans text-4xl  bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500"
+                      className="leading-12 text-gray-900 font-black font-sans text-4xl bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500"
                       id="modal-headline"
                     >
                       {pokemon.name}
@@ -92,6 +98,49 @@ const PokemonDetail = ({ pokemon, isOpen, onClose }) => {
                   onClick={onClose}
                 >
                   Close
+                </button>
+                <button
+                  type="button"
+                  className="inline-flex font-bold justify-center w-full px-4 py-2 text-base text-white bg-gradient-to-r from-pink-400 to-yellow-500 hover:from-green-500 hover:to-blue-500  rounded-md shadow-lg shadow-grey-300 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={() => onSelectPokemon(pokemon)}
+                >
+                  {selectedPokemons.find((p) => p.id === pokemon.id) ? (
+                    <span className="flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      Added
+                    </span>
+                  ) : (
+                    <span className="flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        />
+                      </svg>
+                      Add
+                    </span>
+                  )}
                 </button>
               </div>
             </div>

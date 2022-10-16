@@ -8,8 +8,8 @@ const NavButtons = (props) => {
     pokemons,
   } = props;
   return (
-    <nav className="flex justify-center fixed bottom-0 z-50 mb-10 mx-auto inset-x-0">
-      <div className="inline-flex shadow-2xl shadow-black">
+    <nav className="flex justify-center fixed bottom-0 z-30 mb-10 mx-auto inset-x-0">
+      <div className="inline-flex shadow-lg shadow-grey-500">
         <button
           onClick={handleFirst}
           disabled={startingIndex === 0}
