@@ -41,6 +41,27 @@ const PokemonTypeColor = {
     water: "text-white",
     all: "text-red-500",
   },
+  shadow: {
+    bug: "shadow-[#A8B820]",
+    dark: "shadow-[#705848]",
+    dragon: "shadow-[#7038F8]",
+    electric: "shadow-[#F8D030]",
+    fairy: "shadow-[#EE99AC]",
+    fighting: "shadow-[#C03028]",
+    fire: "shadow-[#F08030]",
+    flying: "shadow-[#A890F0]",
+    ghost: "shadow-[#705898]",
+    grass: "shadow-[#78C850]",
+    ground: "shadow-[#E0C068]",
+    ice: "shadow-[#98D8D8]",
+    normal: "shadow-[#A8A878]",
+    poison: "shadow-[#A040A0]",
+    psychic: "shadow-[#F85888]",
+    rock: "shadow-[#B8A038]",
+    steel: "shadow-[#B8B8D0]",
+    water: "shadow-[#6890F0]",
+    all: "shadow-[#BBBBBB]",
+  },
 };
 
 export default PokemonTypeColor;

@@ -7,7 +7,7 @@ import NavBar from "./NavBar";
 import NavButtons from "./NavButtons";
 import Lottie from "lottie-react";
 import mainLoading from "./main-loading.json";
-import { useLocation } from "react-router-dom";
+
 // with pagination
 const POKEMON_ENDPOINT = "https://pokeapi.co/api/v2/pokemon/?limit=1000";
 const NUMBER_OF_POKEMONS_PER_PAGE = 20;
@@ -21,7 +21,6 @@ const Pokemons = () => {
   const [selectedType, setSelectedType] = useState("all");
   const [selectedPokemons, setSelectedPokemons] = useState([]);
   const [search, setSearch] = useState("");
-  const location = useLocation();
 
   useEffect(() => {
     setLoading(true);
@@ -47,8 +46,6 @@ const Pokemons = () => {
               });
               setPokemons(pokemonsMap);
               setLoading(false);
-
-              console.log(location.state.collections);
             });
           })
           .catch((error) => {});
@@ -111,7 +108,7 @@ const Pokemons = () => {
         selectedPokemons={selectedPokemons}
       />
       {loading ? (
-        <div className="spinner-border w-20 flex justify-center">
+        <div className="w-50 flex justify-center">
           <Lottie animationData={mainLoading} />
         </div>
       ) : (

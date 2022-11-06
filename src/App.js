@@ -6,7 +6,14 @@ import {
   Routes,
   Route,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
+import {
+  ConnectWallet,
+  ThirdwebProvider,
+  ChainId,
+  useAddress,
+} from "@thirdweb-dev/react";
 
 function App() {
   const [collections, setCollections] = useState([]);
@@ -26,34 +33,37 @@ function App() {
 
   return (
     <>
-      <Router>
-        <Routes>
-          <Route
-            path="/collections"
-            element={
-              <ComponentWithNavBar collections={collections}>
-                <Collections removeFromCollections={removeFromCollections} />
-              </ComponentWithNavBar>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <div className="flex justify-center">
+      <ThirdwebProvider desiredChainId={ChainId.Mumbai}>
+        <Router>
+          <Routes>
+            <Route
+              path="/collections"
+              element={
                 <ComponentWithNavBar collections={collections}>
-                  <Pokemons addToCollections={addToCollections} />
+                  <Collections removeFromCollections={removeFromCollections} />
                 </ComponentWithNavBar>
-              </div>
-            }
-          ></Route>
-        </Routes>
-      </Router>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <div className="flex justify-center">
+                  <ComponentWithNavBar collections={collections}>
+                    <Pokemons addToCollections={addToCollections} />
+                  </ComponentWithNavBar>
+                </div>
+              }
+            ></Route>
+          </Routes>
+        </Router>
+      </ThirdwebProvider>
     </>
   );
 }
 
 function ComponentWithNavBar(props) {
   const navigate = useNavigate();
+  const location = useLocation();
   const toPokemons = () => {
     navigate("/", { state: { collections: props.collections } });
   };
@@ -61,8 +71,19 @@ function ComponentWithNavBar(props) {
   const toCollections = () => {
     navigate("/collections", { state: { collections: props.collections } });
   };
+
+  const address = useAddress();
+
   return (
-    <div className="w-full">
+    <div
+      className={`w-full h-screen ${
+        location.pathname === "/collections" && address
+          ? "bg-slate-800"
+          : location.pathname === "/collections" && !address
+          ? "bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 animate-gradient-xy"
+          : ""
+      } duration-[500ms] transition-all ease-in-out flex flex-col`}
+    >
       <nav className="flex justify-between sticky top-0 z-20 bg-orange-600">
         <ul className="flex flow-row">
           <button
@@ -81,6 +102,9 @@ function ComponentWithNavBar(props) {
           >
             Collections
           </button>
+        </ul>
+        <ul className="mx-6">
+          <ConnectWallet colorMode="dark" />
         </ul>
       </nav>
       {props.children}
