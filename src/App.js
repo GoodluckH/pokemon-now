@@ -103,8 +103,8 @@ function ComponentWithNavBar(props) {
             Collections
           </button>
         </ul>
-        <ul className="mx-6">
-          <ConnectWallet colorMode="dark" />
+        <ul className="mx-6 text-white">
+          <ConnectWallet colorMode="light" accentColor="black" />
         </ul>
       </nav>
       {props.children}
